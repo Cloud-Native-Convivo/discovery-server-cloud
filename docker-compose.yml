@@ -1,0 +1,23 @@
+services:
+  discovery-server:
+    build: .
+    container_name: discovery-server
+    restart: unless-stopped
+    ports:
+      - "8761:8761"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8761/actuator/health || exit 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    networks:
+      - convivo-network
+    environment:
+      SERVER_PORT: 8761
+      SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
+
+networks:
+  convivo-network:
+    external: true
+    name: convivo-network
