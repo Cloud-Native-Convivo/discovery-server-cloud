@@ -23,4 +23,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{secrets.DOCKER_USERNAME}}/discovery-server:latest
+          tags: ${{secrets.DOCKER_USERNAME}}/discovery-server-cloud:latest
