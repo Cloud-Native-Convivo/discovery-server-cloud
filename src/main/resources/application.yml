@@ -3,3 +3,12 @@ spring:
     name: discovery-server
   config:
     import: "optional:configserver:http://localhost:8888"
+
+# Standalone: no registrarse ni buscar registro contra sí mismo. Sin esto el
+# cliente Eureka embebido (via @EnableEurekaServer) reintenta conectar a
+# localhost:8761 en loop ("Cannot execute request on any known server"),
+# lo que además tumba /actuator/health y el healthCheck de ECS.
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
