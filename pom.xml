@@ -16,6 +16,10 @@
 		<spring-cloud.version>2025.1.2</spring-cloud.version>
 		<!-- CVE-2026-65182: Boot 4.1.1 trae Tomcat 11.0.24; quitar al subir a un Boot que incluya >= 11.0.25 -->
 		<tomcat.version>11.0.26</tomcat.version>
+		<!-- bcprov llega transitivo via spring-cloud-starter; CVE-2026-8763 (fijo en 1.85) -->
+		<bouncycastle.version>1.86</bouncycastle.version>
+		<!-- freemarker llega via eureka-server; CVE-2026-84939 (fijo en 2.3.35). Quitar al subir de Boot. -->
+		<freemarker.version>2.3.35</freemarker.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -43,6 +47,11 @@
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk18on</artifactId>
+				<version>${bouncycastle.version}</version>
+			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
