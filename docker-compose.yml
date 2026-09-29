@@ -16,6 +16,7 @@ services:
     environment:
       SERVER_PORT: 8761
       SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
+      JAVA_OPTS: "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 
 networks:
   convivo-network:
