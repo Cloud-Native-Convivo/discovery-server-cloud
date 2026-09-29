@@ -12,6 +12,15 @@ updates:
     labels:
       - dependencies
       - java
+    groups:
+      spring:
+        patterns:
+          - "org.springframework*"
+      testing:
+        patterns:
+          - "org.junit*"
+          - "org.mockito*"
+          - "org.jacoco*"
 
   # Imagen base de contenedor (dockerfile)
   - package-ecosystem: docker
