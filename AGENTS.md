@@ -31,11 +31,11 @@ Cuando dos reglas de este archivo entran en conflicto, se resuelven en este orde
 
 ## 2. Stack técnico
 
-- Lenguaje: Java 21
+- Lenguaje: Java 25 (LTS)
 - Framework: Spring Boot **4.1.1** + Spring Cloud **2025.1.1** (`spring-cloud-starter-netflix-eureka-server`, `spring-cloud-starter-config`) — mismas versiones que `config-server`, unificadas 2026-09-03.
 - Build: Maven (wrapper `mvnw`/`mvnw.cmd`)
 - Tests: JUnit 5 (`spring-boot-starter-test`)
-- Contenedores: Docker (multi-stage, `eclipse-temurin:21-jre-alpine` en runtime) + docker-compose con healthcheck
+- Contenedores: Docker (multi-stage, `eclipse-temurin:25-jre-alpine` en runtime) + docker-compose con healthcheck
 
 ## 3. Estructura del proyecto
 
