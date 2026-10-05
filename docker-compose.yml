@@ -6,7 +6,7 @@ services:
     ports:
       - "8761:8761"
     healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8761/actuator/health || exit 1"]
+      test: ["CMD-SHELL", "curl -k -f https://localhost:8761/actuator/health || exit 1"]
       interval: 15s
       timeout: 10s
       retries: 5
@@ -17,6 +17,8 @@ services:
       SERVER_PORT: 8761
       SPRING_CONFIG_IMPORT: "optional:configserver:http://config-server:8888"
       JAVA_OPTS: "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
+      SPRING_SECURITY_USER_NAME: ${EUREKA_USERNAME}
+      SPRING_SECURITY_USER_PASSWORD: ${EUREKA_PASSWORD}
 
 networks:
   convivo-network:

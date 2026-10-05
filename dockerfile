@@ -21,5 +21,5 @@ USER appuser
 EXPOSE 8761
 ENV JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 HEALTHCHECK --interval=20s --timeout=5s --start-period=30s --retries=3 \
-  CMD curl -f http://admin:${EUREKA_PASSWORD:-admin123}@localhost:8761/actuator/health || exit 1
+  CMD curl -k -f https://localhost:8761/actuator/health || exit 1
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
