@@ -2,15 +2,15 @@ server:
   port: 8761
   ssl:
     enabled: true
-    key-store: classpath:keystore.p12
-    key-store-password: changeit
+    # Keystore montado en runtime (no versionado); ej. file:/run/secrets/keystore.p12
+    key-store: ${SSL_KEYSTORE_PATH}
+    key-store-password: ${SSL_KEYSTORE_PASSWORD}
     key-store-type: PKCS12
 
+# Perfil activo vía SPRING_PROFILES_ACTIVE (dev | prod), nunca fijo acá.
 spring:
   application:
     name: discovery-server
-  profiles:
-    active: dev
   config:
     import: "optional:configserver:http://localhost:8888"
 

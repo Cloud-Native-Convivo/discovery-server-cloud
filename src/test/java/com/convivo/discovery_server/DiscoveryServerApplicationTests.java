@@ -8,6 +8,7 @@ class DiscoveryServerApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// Vacío a propósito: el test falla si el contexto de Spring no arranca.
 	}
 
 }
