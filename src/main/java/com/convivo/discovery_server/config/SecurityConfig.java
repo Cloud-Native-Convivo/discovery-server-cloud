@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.XXssConfig;
 
 /**
  * Configuración de seguridad HTTP del servidor Eureka.
@@ -31,24 +32,27 @@ public class SecurityConfig {
      *
      * @param http constructor de seguridad HTTP provisto por Spring Security
      * @return cadena de filtros con autenticación Basic y cabeceras de seguridad
-     * @throws Exception si Spring Security no puede construir la configuración
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.ignoringRequestMatchers("/eureka/**"))
-            .headers(headers -> {
-                headers.xssProtection(xss -> xss.disable());
-                headers.contentSecurityPolicy(csp -> csp.policyDirectives(CONTENT_SECURITY_POLICY));
-                headers.permissionsPolicy(pp -> pp.policy(PERMISSIONS_POLICY));
-                headers.referrerPolicy(referrer -> referrer.policy(ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN));
-            })
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/actuator/health", "/actuator/health/**", "/actuator/info").permitAll()
-                .anyRequest().authenticated()
-            )
-            .httpBasic(Customizer.withDefaults());
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+        try {
+            http
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/eureka/**"))
+                .headers(headers -> {
+                    headers.xssProtection(XXssConfig::disable);
+                    headers.contentSecurityPolicy(csp -> csp.policyDirectives(CONTENT_SECURITY_POLICY));
+                    headers.permissionsPolicyHeader(pp -> pp.policy(PERMISSIONS_POLICY));
+                    headers.referrerPolicy(referrer -> referrer.policy(ReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN));
+                })
+                .authorizeHttpRequests(auth -> auth
+                    .requestMatchers("/actuator/health", "/actuator/health/**", "/actuator/info").permitAll()
+                    .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults());
 
-        return http.build();
+            return http.build();
+        } catch (Exception e) {
+            throw new IllegalStateException("Error al construir la configuración de seguridad", e);
+        }
     }
 }
