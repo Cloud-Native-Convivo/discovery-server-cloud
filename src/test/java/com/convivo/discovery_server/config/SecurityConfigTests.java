@@ -39,6 +39,15 @@ class SecurityConfigTests {
         assertThat(get("/").statusCode()).isEqualTo(401);
     }
 
+    @Test
+    void apiEurekaConCredencialesValidasNoDevuelve401() throws Exception {
+        String auth = java.util.Base64.getEncoder().encodeToString("admin:admin123".getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        HttpRequest request = HttpRequest.newBuilder(URI.create("http://localhost:" + port + "/eureka/apps"))
+                .header("Authorization", "Basic " + auth)
+                .build();
+        assertThat(client.send(request, HttpResponse.BodyHandlers.discarding()).statusCode()).isNotEqualTo(401);
+    }
+
     private HttpResponse<Void> get(String path) throws Exception {
         HttpRequest request = HttpRequest.newBuilder(URI.create("http://localhost:" + port + path)).build();
         return client.send(request, HttpResponse.BodyHandlers.discarding());

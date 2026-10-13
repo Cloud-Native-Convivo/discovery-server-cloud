@@ -2,8 +2,8 @@
 <configuration>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
-    <!-- Profile local/dev: logs legibles por humanos en consola -->
-    <springProfile name="dev | test">
+    <!-- Profile local/dev/default: logs legibles por humanos en consola -->
+    <springProfile name="dev | test | default | local">
         <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
         <root level="INFO">
             <appender-ref ref="CONSOLE"/>
