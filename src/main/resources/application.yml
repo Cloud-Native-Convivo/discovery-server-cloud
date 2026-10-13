@@ -11,8 +11,12 @@ server:
 spring:
   application:
     name: discovery-server
+  security:
+    user:
+      name: ${DISCOVERY_USER:admin}
+      password: ${DISCOVERY_PASSWORD:admin123}
   config:
-    import: "optional:configserver:http://localhost:8888"
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}"
 
 # Standalone: no registrarse ni buscar registro contra sí mismo. Sin esto el
 # cliente Eureka embebido (via @EnableEurekaServer) reintenta conectar a
