@@ -18,6 +18,11 @@ updates:
     labels:
       - dependencies
       - java
+    ignore:
+      - dependency-name: "org.springframework.boot:*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "org.springframework.cloud:*"
+        update-types: ["version-update:semver-major"]
     groups:
       spring:
         patterns:
