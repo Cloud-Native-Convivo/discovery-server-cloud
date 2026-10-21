@@ -1,11 +1,22 @@
 server:
   port: 8761
+  ssl:
+    enabled: true
+    # Keystore montado en runtime (no versionado); ej. file:/run/secrets/keystore.p12
+    key-store: ${SSL_KEYSTORE_PATH}
+    key-store-password: ${SSL_KEYSTORE_PASSWORD}
+    key-store-type: PKCS12
 
+# Perfil activo vía SPRING_PROFILES_ACTIVE (dev | prod), nunca fijo acá.
 spring:
   application:
     name: discovery-server
+  security:
+    user:
+      name: ${DISCOVERY_USER:admin}
+      password: ${DISCOVERY_PASSWORD:admin123}
   config:
-    import: "optional:configserver:http://localhost:8888"
+    import: "optional:configserver:${CONFIG_SERVER_URL:http://localhost:8888}"
 
 # Standalone: no registrarse ni buscar registro contra sí mismo. Sin esto el
 # cliente Eureka embebido (via @EnableEurekaServer) reintenta conectar a
