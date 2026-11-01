@@ -13,7 +13,8 @@ RUN ./mvnw -B package -DskipTests
 # Etapa 2: Imagen final liviana
 # ============================================
 FROM eclipse-temurin:25-jre-alpine@sha256:3c0a9084927a221ccd1d007fcaf614465672c0af37aaa834c5184483afe56d61
-RUN apk add --no-cache curl && \
+# apk upgrade: la imagen base arrastra paquetes con CVEs CRITICAL ya parchados en Alpine (brotli-libs)
+RUN apk upgrade --no-cache && apk add --no-cache curl && \
     addgroup -S appgroup && adduser -S appuser -G appgroup
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
