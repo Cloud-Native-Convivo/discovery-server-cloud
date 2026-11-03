@@ -334,6 +334,10 @@ git checkout develop && git pull origin develop
 
 `--no-ff` siempre (nunca fast-forward).
 
+**Branch protection / PR:** `main` y `develop` protegidas en GitHub: requieren PR, sin review obligatorio (equipo de dos personas: a menudo no hay otra persona que apruebe), con la rama al día (`strict`) y conversaciones resueltas; ni los administradores pueden saltarse las reglas (`enforce_admins`) y no hay force push ni borrado; checks de CI en verde obligatorios.
+
+**Checks obligatorios de este repo** (estado verificado el 2026-11-03): en `develop`, `test`; en `main`, los mismos y además `pr-title`, `dependency-review`, `workflow-lint`, `Analyze (java-kotlin)`, `Analyze (actions)`. El auto-merge está permitido: Dependabot lo activa con squash solo para parches y versiones menores (`.github/workflows/dependabot-auto.yml`) y los saltos de versión mayor se mergean a mano. Detalle y comparación con los demás repos: `AGENTS.md` raíz del workspace, §11.3.
+
 **Advertencia del autor (Driessen 2020):** Git Flow fue concebido para software con versionado explícito. Este microservicio empaqueta imágenes Docker versionadas por tags, por lo que adopta Git Flow full conscientemente.
 
 `(sin repositorio git propio inicializado todavía en discovery-server/ — este esquema es el que se adopta cuando se inicialice, no describe un estado actual con ramas reales)`.
