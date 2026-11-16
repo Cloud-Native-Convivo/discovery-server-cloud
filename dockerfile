@@ -1,7 +1,7 @@
 # ============================================
 # Etapa 1: Compilar la aplicación
 # ============================================
-FROM eclipse-temurin:25-jdk-alpine@sha256:3fd2d245c4e0eba615fe366a71b8bd25f5db7104f53e4026b24bf508b880bd2a AS build
+FROM eclipse-temurin:25-jdk-alpine@sha256:c7c3d0bdf7f2bbc5a05a6712ed334d198360105634ea9adf76fca94f381b1e3f AS build
 WORKDIR /app
 COPY pom.xml mvnw ./
 COPY .mvn .mvn
@@ -12,7 +12,7 @@ RUN ./mvnw -B package -DskipTests
 # ============================================
 # Etapa 2: Imagen final liviana
 # ============================================
-FROM eclipse-temurin:25-jre-alpine@sha256:3c0a9084927a221ccd1d007fcaf614465672c0af37aaa834c5184483afe56d61
+FROM eclipse-temurin:25-jre-alpine@sha256:e1898fd6a11fc965a994d8ace186fd3585aeb636cf8f05f47a723fcfee0b0918
 # apk upgrade: la imagen base arrastra paquetes con CVEs CRITICAL ya parchados en Alpine (brotli-libs)
 RUN apk upgrade --no-cache && apk add --no-cache curl && \
     addgroup -S appgroup && adduser -S appuser -G appgroup
