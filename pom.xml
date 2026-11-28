@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.convivo</groupId>
 	<artifactId>discovery-server</artifactId>
-	<version>0.4.0</version>
+	<version>0.5.0</version>
 	<properties>
 		<java.version>25</java.version>
 		<spring-cloud.version>2025.1.4</spring-cloud.version>
