@@ -17,7 +17,7 @@
 		<!-- CVE-2026-65182: Boot 4.1.1 trae Tomcat 11.0.24; quitar al subir a un Boot que incluya >= 11.0.25 -->
 		<tomcat.version>11.0.26</tomcat.version>
 		<!-- bcprov llega transitivo via spring-cloud-starter; CVE-2026-8763 (fijo en 1.85) -->
-		<bouncycastle.version>1.86</bouncycastle.version>
+		<bouncycastle.version>1.87</bouncycastle.version>
 		<!-- freemarker llega via eureka-server; CVE-2026-84939 (fijo en 2.3.35). Quitar al subir de Boot. -->
 		<freemarker.version>2.3.35</freemarker.version>
 		<!-- jackson-databind: GHSA-q4xh-88c3-wmh7 (HIGH), GHSA-gx83-3vf8-gh7j, GHSA-wjgm-6hv5-3cvf. Quitar al subir de Boot. -->
